@@ -1,3 +1,4 @@
+#!/usr/bin/env python2
 #Libraries
 import rospy
 from std_msgs.msg import Float32MultiArray
@@ -134,18 +135,17 @@ def distance_five():
 
 def ultra_sensors():
     pub = rospy.Publisher('ultra_sensors',Float32MultiArray, queue_size=1)
-    rospy.init_node('ultra_sensors', anonymous=False)
-    rate = rospy.Rate(200) 
-    
-    d_one = distance_one()
-    d_two = distance_two()
-    d_three = distance_three()
-    d_four = distance_four()
-    d_five = distance_five()
-    array = [d_one, d_two, d_three, d_four, d_five]
+    rospy.init_node('ultra_sensors', anonymous=True)
+    rate = rospy.Rate(5) 
     #array = [23.0, 22.3, 3.2, 55.6, 12.4]
 
     while not rospy.is_shutdown():
+        d_one = distance_one()
+        d_two = distance_two()
+        d_three = distance_three()
+        d_four = distance_four()
+        d_five = distance_five()
+        array = [d_one, d_two, d_three, d_four, d_five]
         ultra_str = Float32MultiArray(data = array)
         rospy.loginfo(ultra_str)
         pub.publish(ultra_str)
@@ -155,18 +155,6 @@ if __name__ == '__main__':
     try:
         ultra_sensors()
 
-        # while True:
-        #     dist_one = distance_one()
-        #     dist_two = distance_two()
-        #     dist_three = distance_three()
-        #     dist_four = distance_four()
-        #     dist_five = distance_five()
-        #     print ("D_1=%.2f cm  " "D_2=%.2f cm ""D_3=%.2f cm  ""D_4=%.2f cm  ""D_5=%.2f cm " % (dist_one, dist_two, dist_three, dist_four, dist_five))
-        #     time.sleep(0.1)
- 
-    # Reset by pressing CTRL + C
-    # except KeyboardInterrupt:
-    #     print("Measurement stopped by User")
-    #     GPIO.cleanup()
     except rospy.ROSInterruptException:
         pass
+

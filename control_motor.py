@@ -1,4 +1,9 @@
-import RPi.GPIO as GPIO          
+#!/usr/bin/env python2
+#Libraries
+#import rospy
+import time 
+#from std_msgs.msg import Float32MultiArray
+import RPi.GPIO as GPIO
 from time import sleep
 
 in1 = 5
@@ -7,6 +12,12 @@ ena = 12
 in3 = 25
 in4 = 16
 enb = 13
+speed = 0
+angle = 0
+stop = 0
+sight = 0
+speed_parameter = 1
+
 temp1=1
 
 GPIO.setmode(GPIO.BCM)
@@ -15,84 +26,153 @@ GPIO.setup(in2,GPIO.OUT)
 GPIO.setup(ena,GPIO.OUT)
 GPIO.output(in1,GPIO.LOW)
 GPIO.output(in2,GPIO.LOW)
-p=GPIO.PWM(ena,1000)
-p.start(50)
+pwm_one=GPIO.PWM(ena,1000)
+pwm_one.start(0)
 GPIO.setup(in3,GPIO.OUT)
 GPIO.setup(in4,GPIO.OUT)
 GPIO.setup(enb,GPIO.OUT)
 GPIO.output(in3,GPIO.LOW)
 GPIO.output(in4,GPIO.LOW)
-pp=GPIO.PWM(enb,1000)
-pp.start(50)
+pwm_two=GPIO.PWM(enb,1000)
+pwm_two.start(0)
 
-print("\n")
-print("The default speed & direction of motor is LOW & Forward.....")
-print("r-run s-stop f-forward b-backward l-low m-medium h-high e-exit")
-print("\n")    
+# def callback(data):
+#     global speed,angle,stop,sight
+#     speed = data.data[0]
+#     angle = data.data[1]
+#     stop = data.data[2]
+#     sight = data.data[3]
+#     rospy.loginfo('%.2f %.2f %.0f %.0f', speed,angle,stop,sight)
 
+# def listener():
+
+#     rospy.init_node('motor_control', anonymous=True)
+
+#     rospy.Subscriber('RobotData', Float32MultiArray, callback)
+
+#     # spin() simply keeps python from exiting until this node is stopped
+#     rospy.spin()
+
+# def motorcontrol():
+#     global speed,angle,stop,sight,speed_parameter
+    #print(speed,angle,stop,sight)
 while(1):
 
     x=input()
-    
-    if x=='s':
-        print("stop")
+
+    if x == 's':
         GPIO.output(in1,GPIO.LOW)
         GPIO.output(in2,GPIO.LOW)
         GPIO.output(in3,GPIO.LOW)
         GPIO.output(in4,GPIO.LOW)
-        x='z'
 
-    elif x=='f':
-        print("forward")
-        GPIO.output(in1,GPIO.HIGH)
-        GPIO.output(in2,GPIO.LOW)
-        GPIO.output(in3,GPIO.HIGH)
-        GPIO.output(in4,GPIO.LOW)
-        temp1=1
-        x='z'
-
-    elif x=='b':
-        print("backward")
-        GPIO.output(in1,GPIO.LOW)
-        GPIO.output(in2,GPIO.HIGH)
-        GPIO.output(in3,GPIO.LOW)
-        GPIO.output(in4,GPIO.HIGH)
-        temp1=0
-        x='z'
-
-    elif x=='l':
-        GPIO.output(in1,GPIO.HIGH)
-        GPIO.output(in2,GPIO.LOW)
-        GPIO.output(in3,GPIO.LOW)
-        GPIO.output(in4,GPIO.HIGH)
-        print("left")
-        x='z'
-
-    elif x=='r':
+    elif x == 'n':
+        pwm_one.ChangeDutyCycle(50)
+        pwm_two.ChangeDutyCycle(50)
         GPIO.output(in1,GPIO.LOW)
         GPIO.output(in2,GPIO.HIGH)
         GPIO.output(in3,GPIO.HIGH)
         GPIO.output(in4,GPIO.LOW)
-        print("right")
-        x='z'
-
-    elif x=='m':
-        print("medium")
-        p.ChangeDutyCycle(50)
-        pp.ChangeDutyCycle(50)
-        x='z'
-
-    elif x=='h':
-        print("high")
-        p.ChangeDutyCycle(75)
-        pp.ChangeDutyCycle(75)
-        x='z'
-     	
-    
-    elif x=='e':
-        GPIO.cleanup()
-        break
-    
     else:
-        print("<<<  wrong data  >>>")
-        print("please enter the defined data to continue.....")
+        
+        if x == '0':
+            pwm_one.ChangeDutyCycle(speed)
+            pwm_two.ChangeDutyCycle(speed)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+
+        elif x == '1':
+            pwm_one.ChangeDutyCycle(speed-1*speed_parameter)
+            pwm_two.ChangeDutyCycle(speed+1*speed_parameter)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+
+        elif x == '2':
+            pwm_one.ChangeDutyCycle(speed-2*speed_parameter)
+            pwm_two.ChangeDutyCycle(speed+2*speed_parameter)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+
+        elif x == '3':
+            pwm_one.ChangeDutyCycle(speed-3*speed_parameter)
+            pwm_two.ChangeDutyCycle(speed+3*speed_parameter)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+        
+        elif x == '4':
+            pwm_one.ChangeDutyCycle(speed-4*speed_parameter)
+            pwm_two.ChangeDutyCycle(speed+4*speed_parameter)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+        
+        elif x == '5':
+            pwm_one.ChangeDutyCycle(speed-5*speed_parameter)
+            pwm_two.ChangeDutyCycle(speed+5*speed_parameter)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+
+        elif x == '-1':
+            pwm_one.ChangeDutyCycle(speed+1*speed_parameter)
+            pwm_two.ChangeDutyCycle(speed-1*speed_parameter)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+
+        elif x == '-2':
+            pwm_one.ChangeDutyCycle(speed+2*speed_parameter)
+            pwm_two.ChangeDutyCycle(speed-2*speed_parameter)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+
+        elif x == '-3':
+            pwm_one.ChangeDutyCycle(speed+3*speed_parameter)
+            pwm_two.ChangeDutyCycle(speed-3*speed_parameter)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+        
+        elif x == '-4':
+            pwm_one.ChangeDutyCycle(speed+4*speed_parameter)
+            pwm_two.ChangeDutyCycle(speed-4*speed_parameter)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+        
+        elif x == '-5':
+            pwm_one.ChangeDutyCycle(speed+5*speed_parameter)
+            pwm_two.ChangeDutyCycle(speed-5*speed_parameter)
+            GPIO.output(in1,GPIO.HIGH)
+            GPIO.output(in2,GPIO.LOW)
+            GPIO.output(in3,GPIO.HIGH)
+            GPIO.output(in4,GPIO.LOW)
+        elif x =='e':
+            GPIO.cleanup()
+            break
+        else:
+            print("<<<  wrong data  >>>")
+            print("please enter the defined data to continue.....")
+
+# if __name__ == '__main__':
+#     try:
+#         listener()
+
+#     except rospy.ROSInterruptException:
+#         pass
+

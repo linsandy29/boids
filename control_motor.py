@@ -165,8 +165,7 @@ def motorcontrol():
 if __name__ == '__main__':
     try:
         listener()
-        motorcontrol()
-
+        
     except rospy.ROSInterruptException:
         pass
 

@@ -66,8 +66,8 @@ def motorcontrol():
         #print ("stopped")
 
     elif sight == 1:
-        pwm_one.ChangeDutyCycle(50)
-        pwm_two.ChangeDutyCycle(50)
+        pwm_one.ChangeDutyCycle(20)
+        pwm_two.ChangeDutyCycle(20)
         GPIO.output(in1,GPIO.LOW)
         GPIO.output(in2,GPIO.HIGH)
         GPIO.output(in3,GPIO.HIGH)

@@ -1,7 +1,6 @@
 #Libraries
 import RPi.GPIO as GPIO
 import time
-import queue
 from collections import deque
 
 q = deque([0,0,0,0,0])
@@ -42,8 +41,8 @@ def distance():
     TimeElapsed = StopTime - StartTime
     distance = (TimeElapsed * 34300) / 2
 
-    q.popleft
-    queue.append(distance)
+    q.popleft()
+    q.append(distance)
     c = q
     c = sorted(c)
     size = len(c)
@@ -56,6 +55,7 @@ if __name__ == '__main__':
         while True:
             dist = distance()
             print ("Measured Distance = %.2f cm" % dist)
+            #print (dist)
             time.sleep(0.1)
  
         # Reset by pressing CTRL + C

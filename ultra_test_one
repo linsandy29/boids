@@ -3,6 +3,14 @@
 #from std_msgs.msg import Float32MultiArray
 import RPi.GPIO as GPIO
 import time
+from collections import deque
+
+q1 = deque([0,0,0,0,0])
+q2 = deque([0,0,0,0,0])
+q3 = deque([0,0,0,0,0])
+q4 = deque([0,0,0,0,0])
+q5 = deque([0,0,0,0,0])
+
  
 #GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
@@ -53,7 +61,13 @@ def distance_one():
     TimeElapsed = StopTime - StartTime
     distance = (TimeElapsed * 34300) / 2
  
-    return distance
+    q1.popleft()
+    q1.append(distance)
+    c = q1
+    c = sorted(c)
+    size = len(c)
+    median = c[(size-1)//2]
+    return median
 
 def distance_two():
 
@@ -76,7 +90,13 @@ def distance_two():
     TimeElapsed_two = StopTime_two - StartTime_two
     distance_two = (TimeElapsed_two * 34300) / 2
  
-    return distance_two
+    q2.popleft()
+    q2.append(distance_two)
+    c = q2
+    c = sorted(c)
+    size = len(c)
+    median = c[(size-1)//2]
+    return median
 
 def distance_three():
 
@@ -99,7 +119,13 @@ def distance_three():
     TimeElapsed_three = StopTime_three - StartTime_three
     distance_three = (TimeElapsed_three * 34300) / 2
  
-    return distance_three
+    q3.popleft()
+    q3.append(distance_three)
+    c = q3
+    c = sorted(c)
+    size = len(c)
+    median = c[(size-1)//2]
+    return median
 
 def distance_four():
 
@@ -122,7 +148,13 @@ def distance_four():
     TimeElapsed_four = StopTime_four - StartTime_four
     distance_four = (TimeElapsed_four * 34300) / 2
  
-    return distance_four
+    q4.popleft()
+    q4.append(distance_four)
+    c = q4
+    c = sorted(c)
+    size = len(c)
+    median = c[(size-1)//2]
+    return median
 
 def distance_five():
 
@@ -145,7 +177,13 @@ def distance_five():
     TimeElapsed_five = StopTime_five - StartTime_five
     distance_five = (TimeElapsed_five * 34300) / 2
  
-    return distance_five
+    q5.popleft()
+    q5.append(distance_five)
+    c = q5
+    c = sorted(c)
+    size = len(c)
+    median = c[(size-1)//2]
+    return median
 
  
 if __name__ == '__main__':

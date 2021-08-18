@@ -53,13 +53,13 @@ def distance_one():
     while GPIO.input(echo_one) == 0:
         StartTime = time.time()
         tt = StartTime - StopTime
-        if tt > 0.0058309038:      
+        if tt > 0.0115309038:      
             break
  
     while GPIO.input(echo_one) == 1:
         StopTime = time.time()
         t = StopTime - StartTime
-        if t > 0.0058309038:
+        if t > 0.0115309038:
             break
 
     TimeElapsed = StopTime - StartTime
@@ -74,7 +74,11 @@ def distance_one():
         median = c[(size-1)//2]
         return median
     else:
-        return 404
+        c = q1
+        c = sorted(c)
+        size = len(c)
+        median = c[(size-1)//2]
+        return median
 
 
 def distance_two():
@@ -90,13 +94,13 @@ def distance_two():
     while GPIO.input(echo_two) == 0:
         StartTime_two = time.time()
         tt = StartTime_two - StopTime_two
-        if tt > 0.0058309038:      
+        if tt > 0.0115309038:      
             break
  
     while GPIO.input(echo_two) == 1:
         StopTime_two = time.time()
         t = StopTime_two - StartTime_two
-        if t > 0.0058309038:
+        if t > 0.0115309038:
             break
 
     TimeElapsed_two = StopTime_two - StartTime_two
@@ -111,7 +115,11 @@ def distance_two():
         median = c[(size-1)//2]
         return median
     else:
-        return 404
+        c = q1
+        c = sorted(c)
+        size = len(c)
+        median = c[(size-1)//2]
+        return median
 
 def distance_three():
 
@@ -126,13 +134,13 @@ def distance_three():
     while GPIO.input(echo_three) == 0:
         StartTime_three = time.time()
         tt = StartTime_three - StopTime_three
-        if tt > 0.0058309038:      
+        if tt > 0.0115309038:      
             break
  
     while GPIO.input(echo_three) == 1:
         StopTime_three = time.time()
         t = StopTime_three - StartTime_three
-        if t > 0.0058309038:
+        if t > 0.0115309038:
             break
 
     TimeElapsed_three = StopTime_three - StartTime_three
@@ -147,7 +155,11 @@ def distance_three():
         median = c[(size-1)//2]
         return median
     else:
-        return 404
+        c = q1
+        c = sorted(c)
+        size = len(c)
+        median = c[(size-1)//2]
+        return median
 
 def distance_four():
 
@@ -162,13 +174,13 @@ def distance_four():
     while GPIO.input(echo_four) == 0:
         StartTime_four = time.time()
         tt = StartTime_four - StopTime_four
-        if tt > 0.0058309038:      
+        if tt > 0.0115309038:      
             break
  
     while GPIO.input(echo_four) == 1:
         StopTime_four = time.time()
         t = StopTime_four - StartTime_four
-        if t > 0.0058309038:
+        if t > 0.0115309038:
             break
 
     TimeElapsed_four = StopTime_four - StartTime_four
@@ -183,7 +195,11 @@ def distance_four():
         median = c[(size-1)//2]
         return median
     else:
-        return 404
+        c = q1
+        c = sorted(c)
+        size = len(c)
+        median = c[(size-1)//2]
+        return median
 
 def distance_five():
 
@@ -198,13 +214,13 @@ def distance_five():
     while GPIO.input(echo_five) == 0:
         StartTime_five = time.time()
         tt = StartTime_five - StopTime_five
-        if tt > 0.0058309038:      
+        if tt > 0.0115309038:      
             break
  
     while GPIO.input(echo_five) == 1:
         StopTime_five = time.time()
         t = StopTime_five - StartTime_five
-        if t > 0.0058309038:
+        if t > 0.0115309038:
             break
 
     TimeElapsed_five = StopTime_five - StartTime_five
@@ -213,14 +229,18 @@ def distance_five():
  
     if distance_five>0:
         q5.popleft()
-        q5.append(distance)
+        q5.append(distance_five)
         c = q5
         c = sorted(c)
         size = len(c)
         median = c[(size-1)//2]
         return median
     else:
-        return 404
+        c = q1
+        c = sorted(c)
+        size = len(c)
+        median = c[(size-1)//2]
+        return median
 
 def ultra_sensors():
     pub = rospy.Publisher('ultra_sensors',Float32MultiArray, queue_size=1)

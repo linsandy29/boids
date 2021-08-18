@@ -115,7 +115,7 @@ def distance_two():
         median = c[(size-1)//2]
         return median
     else:
-        c = q1
+        c = q2
         c = sorted(c)
         size = len(c)
         median = c[(size-1)//2]
@@ -155,7 +155,7 @@ def distance_three():
         median = c[(size-1)//2]
         return median
     else:
-        c = q1
+        c = q3
         c = sorted(c)
         size = len(c)
         median = c[(size-1)//2]
@@ -195,7 +195,7 @@ def distance_four():
         median = c[(size-1)//2]
         return median
     else:
-        c = q1
+        c = q4
         c = sorted(c)
         size = len(c)
         median = c[(size-1)//2]
@@ -236,7 +236,7 @@ def distance_five():
         median = c[(size-1)//2]
         return median
     else:
-        c = q1
+        c = q5
         c = sorted(c)
         size = len(c)
         median = c[(size-1)//2]

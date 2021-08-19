@@ -42,6 +42,7 @@ def callback(data):
     angle = data.data[1]
     stop = data.data[2]
     sight = data.data[3]
+    #speed = speed-3
     motorcontrol()
     #rospy.loginfo('%.2f %.2f %.0f %.0f', data.data[0],data.data[1],data.data[2],data.data[3])
     rospy.loginfo('%.2f %.2f %.0f %.0f', speed,angle,stop,sight)

@@ -249,23 +249,15 @@ def ultra_sensors():
     #array = [23.0, 22.3, 3.2, 55.6, 12.4]
 
     while not rospy.is_shutdown():
-        #print("in while")
         d_one = distance_one()
-        #print("after distance 1")
         d_two = distance_two()
-        #print("after distance 2")
         d_three = distance_three()
-        #print("after distance 3")
         d_four = distance_four()
-        #print("after distance 4")
         d_five = distance_five()
-        #print("after distance 5")
         array = [d_one, d_two, d_three, d_four, d_five]
         ultra_str = Float32MultiArray(data = array)
-        #print("after ultra")
         rospy.loginfo(ultra_str)
         pub.publish(ultra_str)
-        #print("after publish")
         rate.sleep()
     if rospy.is_shutdown() == 1:
         #print("rospy is shutdown")
